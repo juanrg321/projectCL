@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>{{ current_user.name }}</h1>
+    <br/><br/>
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Welcome to the Campus Loop</h5>
+          <p class="card-text">Find local deals and events in the area.</p>
+          <a href="{{ url_for('logout')}}" class="btn btn-secondary btn-sm">Logout</a>
+        </div>
+      </div>
+
+    <br/><br/>
+    <body style ='color: white'></p>
+    <strong>Name: </strong>{{ current_user.name }}</br>
+    <strong>Username: </strong>{{ current_user.username }}</br>
+    <strong>User Id: </strong>{{ current_user.id }}</br>
+    <strong>Email: </strong>{{ current_user.email }}</br>
+    <strong>Likes: </strong>{{ current_user.likes }}</br>
+    <strong>Date Joined: </strong>{{ current_user.date_added }}</br>
+    <br/><br/>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Campus Loop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style2.css')}}">
+</head>
+<body>
+
+<div class="main">
+    <div class="navbar">
+    </div>
+    <div class="content">
+        <div class="form">
+            <h1>Campus Loop</h1>
+            <ul>
+                <button class="btnn"><a href="{{url_for('add_user')}}">Create Account</a></button>
+                <button class="returnButton"><a href="{{url_for('login')}}">Login</a></button>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

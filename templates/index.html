@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Campus Loop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style2.css')}}">
+<body>
+<div class = "navbar">
+    <ul>
+        <h1><li><a href = "{{url_for('home')}}" id="Tab1">Home</a></li></h1>
+        <h1><li><a href = "{{url_for('profile')}}" id="Tab2">Profile</a></li></h1>
+        <h1><li><a href = "{{url_for('name')}}" id="Tab2">Name</a></li></h1>
+    </ul>
+</div>
+
+
+</body>
+<div class = "container">
+    <br/>
+    {% block content %}
+        skdfdfgddfg
+    {% endblock %}
+    </div>
+</html>

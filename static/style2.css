@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main{
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url("AquaBackground.jpeg");
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.navbar{
+    width: 1200px;
+    height: 75px;
+    margin: auto;
+}
+
+.form{
+    width: 480px;
+    height: 250px;
+    background: darkslategray;
+    position: relative;
+    top: 100px;
+    left: 500px;
+    transform: translate(0%,-5%);
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.form h1{
+    width: 460px;
+    font-family: 'Times New Roman';
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    background-color: aqua;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 8px;
+}
+
+.form input{
+    width: 460px;
+    height: 35px;
+    background: transparent;
+    border-bottom: 1px solid aqua;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    font-family: sans-serif;
+}
+
+.form input:focus{
+    outline: none;
+}
+
+::placeholder{
+    color: #fff;
+    font-family: Arial;
+}
+
+.btnn{
+    width: 240px;
+    height: 40px;
+    background: aqua;
+    border: none;
+    margin-top: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.4s ease;
+}
+.btnn:hover{
+    background: #fff;
+    color: aqua;
+}
+.btnn a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.returnButton{
+    width: 240px;
+    height: 40px;
+    background: aqua;
+    border: none;
+    margin-top: 30px;
+    margin-left: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.4s ease;
+}
+.returnButton:hover{
+    background: #fff;
+    color: aqua;
+}
+.returnButton a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
