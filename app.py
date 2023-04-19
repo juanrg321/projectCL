@@ -72,12 +72,12 @@ class Users(db.Model, UserMixin):
         return '<Name %r>' % self.name
 
 class UserForm(FlaskForm):
-    name = StringField("Name ")
-    username = StringField("Username ")
-    email = StringField("Email ")
-    likes = StringField("Likes (Ex: Music, shopping, etc..)")
-    password_hash = PasswordField('Password')
-    password_hash2 = PasswordField('Confirm Password')
+    name = StringField("Name ", validators = [DataRequired()])
+    username = StringField("Username ", validators = [DataRequired()])
+    email = StringField("Email ", validators = [DataRequired()])
+    likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
+    password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
+    password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
     submit = SubmitField("Submit")
 
 @app.route('/')
@@ -100,6 +100,7 @@ def add_user():
         form.email.data = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
+    extra_validators = None
     return render_template('add_user.html', form = form, name = name, our_users = our_users)
 
 @app.route('/profile')
