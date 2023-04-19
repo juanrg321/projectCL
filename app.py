@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash , request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError
-#from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms.validators import DataRequired, EqualTo, Length
 from datetime import datetime
 from flask_migrate import Migrate
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -20,8 +20,8 @@ def loader_user(user_id):
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username")
-    password = PasswordField("Password")
+    username = StringField("Username", validators = [DataRequired()])
+    password = PasswordField("Password", validators = [DataRequired()])
     submit = SubmitField("Submit")
 @app.before_first_request
 def create_tables():
@@ -30,7 +30,7 @@ def create_tables():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() & form.submit:
         user = Users.query.filter_by(username = form.username.data).first()
         if user:
             if "password" == form.password.data:
@@ -72,12 +72,12 @@ class Users(db.Model, UserMixin):
         return '<Name %r>' % self.name
 
 class UserForm(FlaskForm):
-    name = StringField("Name ")
-    username = StringField("Username ")
-    email = StringField("Email ")
-    likes = StringField("Likes (Ex: Music, shopping, etc..)")
-    password_hash = PasswordField('Password')
-    password_hash2 = PasswordField('Confirm Password')
+    name = StringField("Name ", validators = [DataRequired()])
+    username = StringField("Username ", validators = [DataRequired()])
+    email = StringField("Email ", validators = [DataRequired()])
+    likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
+    password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
+    password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
     submit = SubmitField("Submit")
 
 @app.route('/')
@@ -87,7 +87,7 @@ def home():
 def add_user():
     name = None
     form = UserForm()
-    if form.validate_on_submit(extra_validators=None):
+    if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
