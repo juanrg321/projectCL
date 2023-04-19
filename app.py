@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash , request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, EqualTo, Length
 from datetime import datetime
 from flask_migrate import Migrate
@@ -87,7 +87,7 @@ def home():
 def add_user():
     name = None
     form = UserForm()
-    if form.validate_on_submit(extra_validators=None):
+    if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
