@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash , request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError
-from wtforms.validators import DataRequired, EqualTo, Length
+#from wtforms.validators import DataRequired, EqualTo, Length
 from datetime import datetime
 from flask_migrate import Migrate
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -20,8 +20,8 @@ def loader_user(user_id):
 
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators = [DataRequired()])
-    password = PasswordField("Password", validators = [DataRequired()])
+    username = StringField("Username")
+    password = PasswordField("Password")
     submit = SubmitField("Submit")
 @app.before_first_request
 def create_tables():
@@ -72,12 +72,12 @@ class Users(db.Model, UserMixin):
         return '<Name %r>' % self.name
 
 class UserForm(FlaskForm):
-    name = StringField("Name ", validators = [DataRequired()])
-    username = StringField("Username ", validators = [DataRequired()])
-    email = StringField("Email ", validators = [DataRequired()])
-    likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
-    password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
-    password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
+    name = StringField("Name ")
+    username = StringField("Username ")
+    email = StringField("Email ")
+    likes = StringField("Likes (Ex: Music, shopping, etc..)")
+    password_hash = PasswordField('Password')
+    password_hash2 = PasswordField('Confirm Password')
     submit = SubmitField("Submit")
 
 @app.route('/')
