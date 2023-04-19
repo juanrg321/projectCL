@@ -70,8 +70,6 @@ class Users(db.Model, UserMixin):
 
     def __repr__(self):
         return '<Name %r>' % self.name
-    
-
 
 class UserForm(FlaskForm):
     name = StringField("Name ", validators = [DataRequired()])
@@ -89,10 +87,10 @@ def home():
 def add_user():
     name = None
     form = UserForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(extra_validators=None):
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data)
+            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
@@ -100,7 +98,6 @@ def add_user():
         form.username.data = ""
         form.likes.data = ""
         form.email.data = ""
-        form.password_hash.data = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
     return render_template('add_user.html', form = form, name = name, our_users = our_users)
