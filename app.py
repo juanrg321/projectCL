@@ -92,7 +92,7 @@ def add_user():
     if form.validate_on_submit():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
+            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
@@ -100,6 +100,7 @@ def add_user():
         form.username.data = ""
         form.likes.data = ""
         form.email.data = ""
+        form.password_hash.data = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
     return render_template('add_user.html', form = form, name = name, our_users = our_users)
