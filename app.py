@@ -30,7 +30,7 @@ def create_tables():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.is_submitted():
+    if form.validate_on_submit():
         user = Users.query.filter_by(username = form.username.data).first()
         if user:
             if "password" == form.password.data:
@@ -87,7 +87,7 @@ def home():
 def add_user():
     name = None
     form = UserForm()
-    if form.validate_on_submit():
+    if form.is_submitted() and form.validate():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
