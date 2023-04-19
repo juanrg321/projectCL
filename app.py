@@ -30,10 +30,10 @@ def create_tables():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    if form.is_submitted() and form.validate():
         user = Users.query.filter_by(username = form.username.data).first()
         if user:
-            if "password" == form.password.data:
+            if "" != form.password.data:
                 login_user(user)
                 flash("login Succesfull")
                 return redirect(url_for('dashboard'))
@@ -90,7 +90,7 @@ def add_user():
     if form.is_submitted() and form.validate():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
+            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
@@ -98,6 +98,7 @@ def add_user():
         form.username.data = ""
         form.likes.data = ""
         form.email.data = ""
+        form.password_hash = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
     
