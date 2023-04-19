@@ -87,7 +87,7 @@ def home():
 def add_user():
     name = None
     form = UserForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(extra_validators=None):
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
             user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data)
@@ -100,7 +100,7 @@ def add_user():
         form.email.data = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
-    extra_validators = None
+    
     return render_template('add_user.html', form = form, name = name, our_users = our_users)
 
 @app.route('/profile')
