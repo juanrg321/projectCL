@@ -76,7 +76,7 @@ class UserForm(FlaskForm):
     username = StringField("Username ", validators = [DataRequired()])
     email = StringField("Email ", validators = [DataRequired()])
     likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
-    password_hash = PasswordField('Password', validators =[DataRequired(), EqualTo('password_hash2')])
+    password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
     password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
     submit = SubmitField("Submit")
 
