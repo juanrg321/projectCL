@@ -31,15 +31,18 @@
       <form method = "POST">
           {{ form.hidden_tag() }}
           <br/>
-          {{ form.subject.label(class = "form-label") }}
-          {{ form.subject(class = "form-control") }}
+          {{ form.title.label(class = "form-label") }}
+          {{ form.title(class = "form-control") }}
+          <br/>
+          {{ form.author.label(class = "form-label") }}
+          {{ form.author(class = "form-control") }}
           <br/>
           {{ form.content.label(class = "form-label") }}
-          {{ form.content(class = "form-control") }}
+          {{ form.content(class = "form-control", rows = "10") }}
           <br/>
           {{ form.submit(class = 'btn btn-primary')}}
-          
-      </form>
+        </form>
+      
     {% endif %}
-
+   
 {% endblock %}
