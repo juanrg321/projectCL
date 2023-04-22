@@ -48,7 +48,26 @@ def login():
 @login_required
 def dashboard():
     form = LoginForm()
-    return render_template('dashboard.html')
+    name = None
+    form = UserForm()
+    if form.is_submitted() and form.validate():
+        user = Users.query.filter_by(email=form.email.data).first()
+        if user is None:
+            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data, business = form.business.data, subject = form.subject.data, content = form.content.data)
+            db.session.add(user)
+            db.session.commit()
+        name = form.name.data
+        form.name.data = ""
+        form.username.data = ""
+        form.likes.data = ""
+        form.email.data = ""
+        form.password_hash.data = ""
+        form.business.data = ""
+        form.subject.data = ""
+        form.content.data = ""
+        flash("User Added Suc")
+    our_users = Users.query.order_by(Users.date_added)
+    return render_template('dashboard.html',form = form, name = name, our_users = our_users)
 
 @app.route('/logout', methods = ['GET', 'POST'])
 @login_required
@@ -67,7 +86,10 @@ class Users(db.Model, UserMixin):
     likes = db.Column(db.String(200), nullable = False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     password_hash = db.Column(db.String(128))
-
+    business = db.Column(db.String(1), nullable = False)
+    subject = db.Column(db.String(200), nullable = True)
+    content = db.Column(db.String(200), nullable = True)
+    
     def __repr__(self):
         return '<Name %r>' % self.name
 
@@ -78,6 +100,9 @@ class UserForm(FlaskForm):
     likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
     password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
     password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
+    business = StringField("Business/Organization? (Y/N)", validators = [DataRequired()])
+    subject = StringField("Subject ")
+    content = StringField("Content ")
     submit = SubmitField("Submit")
 
 @app.route('/')
@@ -90,7 +115,7 @@ def add_user():
     if form.is_submitted() and form.validate():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data)
+            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data, business = form.business.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
@@ -98,7 +123,8 @@ def add_user():
         form.username.data = ""
         form.likes.data = ""
         form.email.data = ""
-        form.password_hash = ""
+        form.password_hash.data = ""
+        form.business.data = ""
         flash("User Added Suc")
     our_users = Users.query.order_by(Users.date_added)
     
@@ -122,6 +148,7 @@ def name():
 def signup():
     return render_template('signup.html')
 @app.route('/home2')
+@login_required
 def home2():
     return render_template('home2.html')
 
