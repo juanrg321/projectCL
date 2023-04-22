@@ -1,19 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="backing">
-</div>
-    <img src="../static/image.jpeg" alt="Avatar" class="avatar">
-    <div class="event">
-        <body style ='color: white'></p>
-        <br/>
-        <h2>College Night</h2><br>
-        <h2>-Monday - Thursday 9:00 pm - 11:30 pm </h2><br>
-        <h2> - $1.00 Per Game and $1.00 Shoes with current college ID</h2>
+<h1> Newsfeed</h1>
+<br/>
+    {% for post in posts %}
+    <div  class = "shadow p-3 mb-5 bg-body rounded">
+        <h2> {{ post.title }}</h2>
+        <small>By: {{ post.author }} </small><br/>
+        {{ post.content }} <br/><br/>
+        {{ post.date_added }} <br/>
     </div>
-    <div class="google-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13840.771135090245!2d-97.9397872!3d29.8587136!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865ca8930ff053a7%3A0x77ecb9532b29c6d4!2sSunset%20Bowling%20Lanes!5e0!3m2!1sen!2sus!4v1680839574112!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
-   </div>
-
-    <a class="ss-btn" href="https://www.sunsetbowlinglanes.com/">Sunset lanes bowling!!</a>  
+    <br/>
+    {% endfor %}
+    
 {% endblock %}
