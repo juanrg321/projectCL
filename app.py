@@ -19,6 +19,7 @@ def loader_user(user_id):
     return Users.query.get(int(user_id))
 
 
+
 class LoginForm(FlaskForm):
     username = StringField("Username", validators = [DataRequired()])
     password = PasswordField("Password", validators = [DataRequired()])
@@ -47,27 +48,17 @@ def login():
 @app.route('/dashboard', methods = ['GET', 'POST'])
 @login_required
 def dashboard():
-    form = LoginForm()
-    name = None
-    form = UserForm()
+    #form = LoginForm()
+    form = PostForm()
     if form.is_submitted() and form.validate():
-        user = Users.query.filter_by(email=form.email.data).first()
-        if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data, business = form.business.data, subject = form.subject.data, content = form.content.data)
-            db.session.add(user)
-            db.session.commit()
-        name = form.name.data
-        form.name.data = ""
-        form.username.data = ""
-        form.likes.data = ""
-        form.email.data = ""
-        form.password_hash.data = ""
-        form.business.data = ""
-        form.subject.data = ""
+        post = Posts(title = form.title.data, content = form.content.data, author = form.author.data)
+        form.title.data = ""
         form.content.data = ""
-        flash("User Added Suc")
-    our_users = Users.query.order_by(Users.date_added)
-    return render_template('dashboard.html',form = form, name = name, our_users = our_users)
+        form.author.data = ""
+        db.session.add(post)
+        db.session.commit()
+    our_posts = Posts.query.order_by(Posts.date_posted)
+    return render_template('dashboard.html',form = form, our_posts = our_posts)
 
 @app.route('/logout', methods = ['GET', 'POST'])
 @login_required
@@ -92,6 +83,33 @@ class Users(db.Model, UserMixin):
     
     def __repr__(self):
         return '<Name %r>' % self.name
+
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(225))
+    content = db.Column(db.Text)
+    author = db.Column(db.String(225))
+    date_posted = db.Column(db.DateTime, default = datetime.utcnow)
+
+class PostForm(FlaskForm):
+    title = StringField("Title", validators =[DataRequired()])
+    content = StringField("Content", validators =[DataRequired()])
+    author = StringField("Author", validators =[DataRequired()])
+    submit = SubmitField("Submit")
+
+@app.route('/add-post', methods = ['GET', 'POST'])
+def add_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Posts(title = form.title.data, content = form.content.data, author = form.author.data)
+        form.title.data = ''
+        form.content.data = ''
+        form.author.data = ''
+        form.slug.data = ''
+        db.session.add(post)
+        db.session.commit()
+        flash("Blog post submitted")
+    return render_template("add_post.html", form = form)
 
 class UserForm(FlaskForm):
     name = StringField("Name ", validators = [DataRequired()])
@@ -150,7 +168,9 @@ def signup():
 @app.route('/home2')
 @login_required
 def home2():
-    return render_template('home2.html')
+    posts = Posts.query.order_by(Posts.date_posted)
+
+    return render_template('home2.html', posts = posts)
 
 
 if __name__ == '__main__':
