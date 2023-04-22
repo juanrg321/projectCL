@@ -21,6 +21,25 @@
     <strong>Email: </strong>{{ current_user.email }}</br>
     <strong>Likes: </strong>{{ current_user.likes }}</br>
     <strong>Date Joined: </strong>{{ current_user.date_added }}</br>
+    <strong>Business: </strong>{{ current_user.business }}</br>
+
     <br/><br/>
+    {% if current_user.business == "y" %}
+    <h1><p style = "color: white">Create a post:</h1>
+      <br/>
+  <Div class = "shadow p-3 mb-5 bg-body rounded">
+      <form method = "POST">
+          {{ form.hidden_tag() }}
+          <br/>
+          {{ form.subject.label(class = "form-label") }}
+          {{ form.subject(class = "form-control") }}
+          <br/>
+          {{ form.content.label(class = "form-label") }}
+          {{ form.content(class = "form-control") }}
+          <br/>
+          {{ form.submit(class = 'btn btn-primary')}}
+          
+      </form>
+    {% endif %}
 
 {% endblock %}
