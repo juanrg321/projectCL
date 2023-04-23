@@ -29,6 +29,7 @@
       <br/>
   <Div class = "shadow p-3 mb-5 bg-body rounded">
       <form method = "POST">
+        <p style="color:rgb(0, 0, 0)">
           {{ form.hidden_tag() }}
           <br/>
           {{ form.title.label(class = "form-label") }}
@@ -42,7 +43,7 @@
           <br/>
           {{ form.submit(class = 'btn btn-primary')}}
         </form>
-      
+        </p>
     {% endif %}
    
 {% endblock %}

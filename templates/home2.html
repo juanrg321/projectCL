@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> Newsfeed</h1>
+<h1> <p style="color:rgb(255, 255, 255)">Newsfeed</h1>
 <br/>
     {% for post in posts %}
     <div  class = "shadow p-3 mb-5 bg-body rounded">
         <h2> {{ post.title }}</h2>
-        <small>By: {{ post.author }} </small><br/>
-        {{ post.content }} <br/><br/>
-        {{ post.date_added }} <br/>
+        <small>By: {{ post.author }}</small><br/>
+        <large>{{ post.content }} </large> <br/><br/>
+        <small>{{ post.date_posted }}</small> <br/>
     </div>
     <br/>
     {% endfor %}
