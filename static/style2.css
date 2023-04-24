@@ -5,7 +5,7 @@
 
 .main{
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url("AquaBackground.jpeg");
+    background: linear-gradient(to top, rgba(0, 0, 0, 0)50%,rgba(0, 0, 0, 0)50%), url("whatever2.jpeg");
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -19,8 +19,8 @@
 
 .form{
     width: 480px;
-    height: 250px;
-    background: darkslategray;
+    height: 125px;
+    background: rgba(47, 79, 79, 0.158);
     position: relative;
     top: 100px;
     left: 500px;
@@ -33,9 +33,9 @@
     width: 460px;
     font-family: 'Times New Roman';
     text-align: center;
-    color: black;
+    color: white;
     font-size: 30px;
-    background-color: aqua;
+    background-color: #b4e3d9;
     border-radius: 5px;
     margin: 2px;
     padding: 8px;
@@ -45,7 +45,7 @@
     width: 460px;
     height: 35px;
     background: transparent;
-    border-bottom: 1px solid aqua;
+    border-bottom: 1px solid #b4e3d9;
     border-top: none;
     border-right: none;
     border-left: none;
@@ -68,7 +68,7 @@
 .btnn{
     width: 240px;
     height: 40px;
-    background: aqua;
+    background: #b4e3d9;
     border: none;
     margin-top: 30px;
     font-size: 18px;
@@ -79,11 +79,11 @@
 }
 .btnn:hover{
     background: #fff;
-    color: aqua;
+    color: #b4e3d9;
 }
 .btnn a{
     text-decoration: none;
-    color: #000;
+    color: rgb(249, 246, 246);
     font-weight: bold;
 }
 
@@ -97,7 +97,7 @@ ul{
 .returnButton{
     width: 240px;
     height: 40px;
-    background: aqua;
+    background: #b4e3d9;
     border: none;
     margin-top: 30px;
     margin-left: 10px;
@@ -109,10 +109,10 @@ ul{
 }
 .returnButton:hover{
     background: #fff;
-    color: aqua;
+    color: #b4e3d9;
 }
 .returnButton a{
     text-decoration: none;
-    color: #000;
+    color: rgb(255, 255, 255);
     font-weight: bold;
 }
