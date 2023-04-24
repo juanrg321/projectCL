@@ -20,11 +20,13 @@
     <strong>User Id: </strong>{{ current_user.id }}</br>
     <strong>Email: </strong>{{ current_user.email }}</br>
     <strong>Likes: </strong>{{ current_user.likes }}</br>
+    <strong>Likes: </strong>{{ current_user.likes2 }}</br>
+    <strong>Likes: </strong>{{ current_user.likes3 }}</br>
     <strong>Date Joined: </strong>{{ current_user.date_added }}</br>
     <strong>Business: </strong>{{ current_user.business }}</br>
 
     <br/><br/>
-    {% if current_user.business == "y" %}
+    {% if current_user.business == "y" or current_user.business == "Y" %}
     <h1><p style = "color: white">Create a post:</h1>
       <br/>
   <Div class = "shadow p-3 mb-5 bg-body rounded">
@@ -37,6 +39,15 @@
           <br/>
           {{ form.author.label(class = "form-label") }}
           {{ form.author(class = "form-control") }}
+          <br/>
+          {{ form.tag.label(class = "form-label") }}
+          {{ form.tag(class = "form-control") }}
+          <br/>
+          {{ form.tag2.label(class = "form-label") }}
+          {{ form.tag2(class = "form-control") }}
+          <br/>
+          {{ form.tag3.label(class = "form-label") }}
+          {{ form.tag3(class = "form-control") }}
           <br/>
           {{ form.content.label(class = "form-label") }}
           {{ form.content(class = "form-control", rows = "10") }}

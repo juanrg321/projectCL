@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if name %}
-    <h1>Welcome {{ name }} !!</h1>
+    <h1><p style = "color: white">Welcome {{ name }}</h1>
 {% else %}
     <h1><p style = "color: white">Create an acccount:</h1>
     <br/>
@@ -22,6 +22,12 @@
         {{ form.likes.label(class = "form-label") }}
         {{ form.likes(class = "form-control") }}
         <br/>
+        {{ form.likes2.label(class = "form-label") }}
+        {{ form.likes2(class = "form-control") }}
+         </br>
+         {{ form.likes3.label(class = "form-label") }}
+         {{ form.likes3(class = "form-control") }}
+          </br>
         {{ form.password_hash.label(class = "form-label") }}
         {{ form.password_hash(class = "form-control") }}
         <br/>
@@ -38,7 +44,7 @@
 </div>
 <br/><br/>
 {% for our_user in our_users %}
-    {{ our_user.id }}. {{ our_user.password_hash }} - {{ our_user.email }}
+    {{ our_user.id }}. {{ our_user.username }}
      <br/>
 {% endfor %}
 {% endif %}

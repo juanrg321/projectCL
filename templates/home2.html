@@ -4,13 +4,15 @@
 <h1> <p style="color:rgb(255, 255, 255)">Newsfeed</h1>
 <br/>
     {% for post in posts %}
-    <div  class = "shadow p-3 mb-5 bg-body rounded">
-        <h2> {{ post.title }}</h2>
-        <small>By: {{ post.author }}</small><br/>
-        <large>{{ post.content }} </large> <br/><br/>
-        <small>{{ post.date_posted }}</small> <br/>
-    </div>
-    <br/>
+        {% if current_user.likes == post.tag or current_user.likes == post.tag2 or current_user.likes == post.tag3 or current_user.likes2 == post.tag or current_user.likes2 == post.tag2 or current_user.likes2 == post.tag3 or current_user.likes3 == post.tag or current_user.likes3 == post.tag2 or current_user.likes3 == post.tag3 %}
+        <div  class = "shadow p-3 mb-5 bg-body rounded">
+            <h2> {{ post.title }}</h2>
+            <small>By: {{ post.author }}</small><br/>
+            <large>{{ post.content }} </large> <br/><br/>
+            <small>{{ post.date_posted }}</small> <br/>
+        </div>
+        <br/>
+        {% endif %}
     {% endfor %}
     
 {% endblock %}
