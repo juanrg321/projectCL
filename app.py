@@ -51,10 +51,13 @@ def dashboard():
     #form = LoginForm()
     form = PostForm()
     if form.is_submitted() and form.validate():
-        post = Posts(title = form.title.data, content = form.content.data, author = form.author.data)
+        post = Posts(tag = form.tag.data, tag2 = form.tag2.data, tag3 = form.tag3.data, title = form.title.data, content = form.content.data, author = form.author.data)
         form.title.data = ""
         form.content.data = ""
         form.author.data = ""
+        form.tag.data = ""
+        form.tag2.data = ""
+        form.tag3.data = ""
         db.session.add(post)
         db.session.commit()
     our_posts = Posts.query.order_by(Posts.date_posted)
@@ -75,9 +78,11 @@ class Users(db.Model, UserMixin):
     name = db.Column(db.String(200), nullable = False)
     email = db.Column(db.String(200), nullable = False, unique = True)
     likes = db.Column(db.String(200), nullable = False)
+    likes2 = db.Column(db.String(200), nullable = False)
+    likes3 = db.Column(db.String(200), nullable = False)
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
     password_hash = db.Column(db.String(128))
-    business = db.Column(db.String(1), nullable = False)
+    business = db.Column(db.String(20), nullable = False)
     subject = db.Column(db.String(200), nullable = True)
     content = db.Column(db.String(200), nullable = True)
     
@@ -88,12 +93,18 @@ class Posts(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(225))
     content = db.Column(db.Text)
+    tag = db.Column(db.String(225))
+    tag2 = db.Column(db.String(225))
+    tag3 = db.Column(db.String(225))
     author = db.Column(db.String(225))
     date_posted = db.Column(db.DateTime, default = datetime.utcnow)
 
 class PostForm(FlaskForm):
     title = StringField("Title", validators =[DataRequired()])
     content = StringField("Content", validators =[DataRequired()])
+    tag = StringField("Tag 1", validators =[DataRequired()])
+    tag2 = StringField("Tag 2", validators =[DataRequired()])
+    tag3 = StringField("Tag 3", validators =[DataRequired()])
     author = StringField("Author", validators =[DataRequired()])
     submit = SubmitField("Submit")
 
@@ -115,7 +126,9 @@ class UserForm(FlaskForm):
     name = StringField("Name ", validators = [DataRequired()])
     username = StringField("Username ", validators = [DataRequired()])
     email = StringField("Email ", validators = [DataRequired()])
-    likes = StringField("Likes (Ex: Music, shopping, etc..)", validators = [DataRequired()])
+    likes = StringField("Like 1 (Ex: Music, shopping, etc..)", validators = [DataRequired()])
+    likes2 = StringField("Like 2", validators = [DataRequired()])
+    likes3 = StringField("Like 3", validators = [DataRequired()])
     password_hash = PasswordField('Password', validators = [DataRequired(), EqualTo('password_hash2')])
     password_hash2 = PasswordField('Confirm Password', validators = [DataRequired()])
     business = StringField("Business/Organization? (Y/N)", validators = [DataRequired()])
@@ -133,13 +146,15 @@ def add_user():
     if form.is_submitted() and form.validate():
         user = Users.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = Users(likes = form.likes.data, username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data, business = form.business.data)
+            user = Users(likes = form.likes.data,likes2 = form.likes2.data, likes3 = form.likes3.data,  username = form.username.data, name = form.name.data, email = form.email.data, password_hash = form.password_hash.data, business = form.business.data)
             db.session.add(user)
             db.session.commit()
         name = form.name.data
         form.name.data = ""
         form.username.data = ""
         form.likes.data = ""
+        form.likes2.data = ""
+        form.likes3.data = ""
         form.email.data = ""
         form.password_hash.data = ""
         form.business.data = ""
