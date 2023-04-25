@@ -186,7 +186,12 @@ def home2():
     posts = Posts.query.order_by(Posts.date_posted)
 
     return render_template('home2.html', posts = posts)
+@app.route('/home1')
+@login_required
+def home1():
+    posts = Posts.query.order_by(Posts.date_posted)
 
+    return render_template('home1.html', posts = posts)
 
 if __name__ == '__main__':
    app.run(debug=True)
